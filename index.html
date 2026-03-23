@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Serigne Mbaye THIAM — ISE | Data & Finance</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #10101a;
+    --surface: #14141f;
+    --border: rgba(180,160,120,0.15);
+    --gold: #c9a84c;
+    --gold2: #e8c97a;
+    --gold-dim: rgba(201,168,76,0.12);
+    --text: #e8e4dc;
+    --muted: #8a8578;
+    --accent: #4a9eff;
+    --white: #f5f2ec;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%,-50%);
+    transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(201,168,76,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%,-50%);
+    transition: all 0.15s ease;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent);
+    backdrop-filter: blur(6px);
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* Hero */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 0 60px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(201,168,76,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(74,158,255,0.04) 0%, transparent 60%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 90% 90% at center, black 30%, transparent 80%);
+  }
+
+  .hero-number {
+    position: absolute;
+    right: 60px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(140px, 20vw, 260px);
+    font-weight: 300;
+    color: rgba(201,168,76,0.06);
+    letter-spacing: -0.05em;
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 760px;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 7vw, 96px);
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--white);
+    margin-bottom: 6px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s forwards;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold2);
+  }
+
+  .hero-subtitle {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(13px, 1.5vw, 16px);
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-bio {
+    font-size: 13px;
+    line-height: 2;
+    color: var(--muted);
+    max-width: 520px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.65s forwards;
+  }
+
+  .hero-ctas {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-primary:hover {
+    background: var(--gold2);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn-outline:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  /* Sections */
+  section {
+    padding: 100px 60px;
+    position: relative;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 60px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 200px;
+  }
+
+  /* About */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .about-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 28px;
+  }
+  .about-heading em { font-style: italic; color: var(--gold2); }
+
+  .about-text {
+    font-size: 13px;
+    line-height: 2.1;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .stat-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 48px;
+  }
+
+  .stat-card {
+    border: 1px solid var(--border);
+    padding: 28px;
+    background: var(--surface);
+    transition: border-color 0.3s;
+  }
+  .stat-card:hover { border-color: var(--gold); }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-desc {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Skills */
+  #competences { background: var(--bg2); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .skill-block {
+    background: var(--surface);
+    padding: 40px 32px;
+    transition: background 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .skill-block::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+    transform-origin: left;
+  }
+  .skill-block:hover::before { transform: scaleX(1); }
+  .skill-block:hover { background: rgba(201,168,76,0.05); }
+
+  .skill-icon {
+    font-size: 28px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .skill-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 16px;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: all 0.2s;
+  }
+  .skill-block:hover .tag {
+    border-color: rgba(201,168,76,0.3);
+    color: var(--gold);
+  }
+
+  /* Experience */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 8px; bottom: 0;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: all 0.6s ease;
+  }
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .timeline-dot {
+    position: absolute;
+    left: -38px;
+    top: 8px;
+    width: 13px; height: 13px;
+    border: 2px solid var(--gold);
+    background: var(--bg);
+    border-radius: 50%;
+    transition: background 0.3s;
+  }
+  .timeline-item:hover .timeline-dot { background: var(--gold); }
+
+  .timeline-date {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .timeline-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+
+  .timeline-org {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+
+  /* Education */
+  #formation { background: var(--bg2); }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+  }
+
+  .edu-card {
+    background: var(--surface);
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .edu-card:hover { background: rgba(201,168,76,0.04); }
+
+  .edu-year {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 60px;
+    font-weight: 300;
+    color: rgba(201,168,76,0.1);
+    position: absolute;
+    right: 24px;
+    top: 20px;
+    line-height: 1;
+    transition: color 0.3s;
+  }
+  .edu-card:hover .edu-year { color: rgba(201,168,76,0.18); }
+
+  .edu-badge {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 4px 12px;
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+
+  .edu-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .edu-school {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Tools */
+  .tools-marquee-wrap {
+    overflow: hidden;
+    margin: 0 -60px;
+    padding: 40px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tools-marquee {
+    display: flex;
+    gap: 48px;
+    width: max-content;
+    animation: marquee 28s linear infinite;
+  }
+
+  .tool-item {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    transition: color 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .tool-item::after {
+    content: '◆';
+    font-size: 6px;
+    color: var(--gold);
+  }
+  .tool-item:hover { color: var(--gold); }
+
+  /* Contact */
+  #contact { background: var(--bg2); }
+
+  .contact-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .contact-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(44px, 7vw, 80px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 24px;
+  }
+  .contact-heading em { font-style: italic; color: var(--gold2); }
+
+  .contact-sub {
+    font-size: 12px;
+    line-height: 2;
+    color: var(--muted);
+    margin-bottom: 48px;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+
+  .contact-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    transition: transform 0.3s;
+  }
+  .contact-link:hover { transform: translateY(-4px); }
+
+  .contact-link-icon {
+    width: 52px; height: 52px;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    background: var(--surface);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .contact-link:hover .contact-link-icon {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+  }
+
+  .contact-link-label {
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .contact-link:hover .contact-link-label { color: var(--gold); }
+
+  /* Footer */
+  footer {
+    padding: 28px 60px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-copy {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .footer-refs {
+    display: flex;
+    gap: 32px;
+  }
+
+  .footer-ref {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+  }
+  .footer-ref strong {
+    display: block;
+    color: var(--gold);
+    font-family: 'Syne', sans-serif;
+  }
+
+  /* Animations */
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(24px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    section { padding: 70px 24px; }
+    .hero { padding: 0 24px; }
+    .about-grid, .edu-grid, .skills-grid { grid-template-columns: 1fr; }
+    .tools-marquee-wrap { margin: 0 -24px; }
+    footer { padding: 24px; }
+    .hero-number { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SMT</div>
+  <ul class="nav-links">
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#experience">Expériences</a></li>
+    <li><a href="#formation">Formation</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-number">ISE</div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Ingénieur Statisticien Économiste</div>
+    <h1 class="hero-name">Serigne Mbaye<br><em>THIAM</em></h1>
+    <p class="hero-subtitle">Data · Finance · Actuariat · Évaluation d'Impact</p>
+    <p class="hero-bio">
+      Statisticien économiste diplômé de l'ENSAE Dakar, spécialisé en Finance & Actuariat. 
+      Actuellement chargé de projet à l'ANSD, avec une expertise couvrant la Business Intelligence, 
+      l'économétrie avancée et le suivi-évaluation des politiques publiques.
+    </p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">→ Me contacter</a>
+      <a href="#experience" class="btn-outline">↓ Voir mon parcours</a>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section id="apropos">
+  <div class="section-label">01 — À propos</div>
+  <div class="about-grid">
+    <div>
+      <h2 class="about-heading reveal">Expertise <em>quantitative</em> au service de la décision</h2>
+      <p class="about-text reveal">
+        Depuis 2022, j'accompagne des structures publiques et privées en traitement de données, suivi-évaluation et Business Intelligence. Diplômé de l'ENSAE en 2024, j'ai rejoint l'ANSD (Agence Nationale de la Statistique et de la Démographie) comme chargé de projet.
+      </p>
+      <p class="about-text reveal">
+        Mon profil hybride combine rigueur statistique, maîtrise des outils Big Data et compréhension fine des enjeux économiques et financiers — des atouts pour des missions à fort impact.
+      </p>
+    </div>
+    <div>
+      <div class="stat-row reveal">
+        <div class="stat-card">
+          <div class="stat-num">3+</div>
+          <div class="stat-desc">Années de consultance</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">7+</div>
+          <div class="stat-desc">Missions terrain</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">15+</div>
+          <div class="stat-desc">Outils maîtrisés</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">5</div>
+          <div class="stat-desc">Certifications pro</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OUTILS - MARQUEE -->
+<div class="tools-marquee-wrap">
+  <div class="tools-marquee">
+    <span class="tool-item">Python</span>
+    <span class="tool-item">R</span>
+    <span class="tool-item">Power BI</span>
+    <span class="tool-item">Tableau</span>
+    <span class="tool-item">STATA</span>
+    <span class="tool-item">SPSS</span>
+    <span class="tool-item">PostgreSQL</span>
+    <span class="tool-item">Django</span>
+    <span class="tool-item">FastAPI</span>
+    <span class="tool-item">Spark</span>
+    <span class="tool-item">Hadoop</span>
+    <span class="tool-item">AWS</span>
+    <span class="tool-item">ArcGIS</span>
+    <span class="tool-item">QGIS</span>
+    <span class="tool-item">SAS</span>
+    <span class="tool-item">VBA</span>
+    <span class="tool-item">KoboToolbox</span>
+    <span class="tool-item">ODK</span>
+    <!-- duplicate for seamless loop -->
+    <span class="tool-item">Python</span>
+    <span class="tool-item">R</span>
+    <span class="tool-item">Power BI</span>
+    <span class="tool-item">Tableau</span>
+    <span class="tool-item">STATA</span>
+    <span class="tool-item">SPSS</span>
+    <span class="tool-item">PostgreSQL</span>
+    <span class="tool-item">Django</span>
+    <span class="tool-item">FastAPI</span>
+    <span class="tool-item">Spark</span>
+    <span class="tool-item">Hadoop</span>
+    <span class="tool-item">AWS</span>
+    <span class="tool-item">ArcGIS</span>
+    <span class="tool-item">QGIS</span>
+    <span class="tool-item">SAS</span>
+    <span class="tool-item">VBA</span>
+    <span class="tool-item">KoboToolbox</span>
+    <span class="tool-item">ODK</span>
+  </div>
+</div>
+
+<!-- COMPÉTENCES -->
+<section id="competences">
+  <div class="section-label">02 — Compétences</div>
+  <div class="skills-grid">
+    <div class="skill-block reveal">
+      <span class="skill-icon">📊</span>
+      <div class="skill-title">Business Intelligence</div>
+      <div class="skill-tags">
+        <span class="tag">Power BI</span>
+        <span class="tag">Tableau</span>
+        <span class="tag">DAX</span>
+        <span class="tag">Power Query</span>
+        <span class="tag">KPI Modeling</span>
+        <span class="tag">ETL</span>
+      </div>
+    </div>
+    <div class="skill-block reveal" style="transition-delay:0.1s">
+      <span class="skill-icon">🤖</span>
+      <div class="skill-title">Machine Learning</div>
+      <div class="skill-tags">
+        <span class="tag">Supervisé</span>
+        <span class="tag">Non-supervisé</span>
+        <span class="tag">Reinforcement</span>
+        <span class="tag">Clustering</span>
+        <span class="tag">Classification</span>
+      </div>
+    </div>
+    <div class="skill-block reveal" style="transition-delay:0.2s">
+      <span class="skill-icon">📐</span>
+      <div class="skill-title">Économétrie</div>
+      <div class="skill-tags">
+        <span class="tag">Modèles linéaires</span>
+        <span class="tag">Séries temporelles</span>
+        <span class="tag">Panel data</span>
+        <span class="tag">Bayésien</span>
+        <span class="tag">Finance</span>
+      </div>
+    </div>
+    <div class="skill-block reveal" style="transition-delay:0.1s">
+      <span class="skill-icon">🛡️</span>
+      <div class="skill-title">Actuariat & Risque</div>
+      <div class="skill-tags">
+        <span class="tag">Tarification Vie</span>
+        <span class="tag">IARD</span>
+        <span class="tag">VaR</span>
+        <span class="tag">Monte Carlo</span>
+        <span class="tag">Bâle III</span>
+        <span class="tag">Stress test</span>
+      </div>
+    </div>
+    <div class="skill-block reveal" style="transition-delay:0.2s">
+      <span class="skill-icon">🔬</span>
+      <div class="skill-title">Évaluation d'Impact</div>
+      <div class="skill-tags">
+        <span class="tag">RCT</span>
+        <span class="tag">DiD</span>
+        <span class="tag">PSM</span>
+        <span class="tag">Variables instrumentales</span>
+        <span class="tag">RDD</span>
+      </div>
+    </div>
+    <div class="skill-block reveal" style="transition-delay:0.3s">
+      <span class="skill-icon">🗄️</span>
+      <div class="skill-title">Data Engineering</div>
+      <div class="skill-tags">
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">MySQL</span>
+        <span class="tag">MongoDB</span>
+        <span class="tag">Spark</span>
+        <span class="tag">Hadoop</span>
+        <span class="tag">AWS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPÉRIENCES -->
+<section id="experience">
+  <div class="section-label">03 — Expériences</div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Depuis octobre 2025</div>
+      <div class="timeline-title">Chargé de projet — DSDS</div>
+      <div class="timeline-org">ANSD · Dakar, Sénégal · ENES & EHCVM</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Fév. 2025 — Sept. 2025</div>
+      <div class="timeline-title">Chargé de projet — DSECN</div>
+      <div class="timeline-org">ANSD · Dakar, Sénégal · EHCVM prix</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Mai 2024 — Août 2024</div>
+      <div class="timeline-title">Business Analyst</div>
+      <div class="timeline-org">SONATEL · Direction des Opérations Internationales (DOI)</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Avr. 2024 — Mai 2024</div>
+      <div class="timeline-title">Co-chef d'équipe — Applications de collecte</div>
+      <div class="timeline-org">ANSD · Dakar, Sénégal</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Janv. 2022 — Juil. 2024</div>
+      <div class="timeline-title">Consultant indépendant</div>
+      <div class="timeline-org">Traitement de données · Suivi-Évaluation · Business Intelligence</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Mai 2023 — Juin 2023</div>
+      <div class="timeline-title">Concepteur d'enquête d'évaluation</div>
+      <div class="timeline-org">ANSD – IRD · Dakar</div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-date">Sept. 2022 — Oct. 2022</div>
+      <div class="timeline-title">Collecte de données — Santé</div>
+      <div class="timeline-org">ADEMAS · Kaolack</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FORMATION -->
+<section id="formation">
+  <div class="section-label">04 — Formation</div>
+  <div class="edu-grid reveal">
+    <div class="edu-card">
+      <div class="edu-year">2024</div>
+      <div class="edu-badge">Diplôme d'ingénieur</div>
+      <div class="edu-title">Ingénieur Statisticien Économiste</div>
+      <div class="edu-school">ENSAE — École Nationale de la Statistique et de l'Analyse Économique · Dakar</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2021</div>
+      <div class="edu-badge">Licence</div>
+      <div class="edu-title">Mathématiques Appliquées à la Finance</div>
+      <div class="edu-school">Université Gaston Berger (UFR SAT) · Saint-Louis</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2025</div>
+      <div class="edu-badge">Certification ONU</div>
+      <div class="edu-title">Planification & Suivi-Évaluation des Politiques Publiques</div>
+      <div class="edu-school">IDEP – Nations Unies · Dakar</div>
+    </div>
+    <div class="edu-card">
+      <div class="edu-year">2016</div>
+      <div class="edu-badge">Baccalauréat</div>
+      <div class="edu-title">Baccalauréat Scientifique</div>
+      <div class="edu-school">Lycée Malick SY · Thiès, Sénégal</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <h2 class="contact-heading reveal">Collaborons <em>ensemble</em></h2>
+    <p class="contact-sub reveal">
+      Disponible pour des missions de conseil, des collaborations académiques<br>
+      ou des opportunités professionnelles en finance, data et évaluation.
+    </p>
+    <div class="contact-links reveal">
+      <a href="/cdn-cgi/l/email-protection#394a5c4b505e575c545b58405c4d515058540f795e54585055175a5654" class="contact-link">
+        <div class="contact-link-icon">✉</div>
+        <span class="contact-link-label">Email</span>
+      </a>
+      <a href="tel:+221774858743" class="contact-link">
+        <div class="contact-link-icon">☎</div>
+        <span class="contact-link-label">Téléphone</span>
+      </a>
+      <a href="https://linkedin.com/in/s-m-t6/" target="_blank" class="contact-link">
+        <div class="contact-link-icon">in</div>
+        <span class="contact-link-label">LinkedIn</span>
+      </a>
+      <a href="#" class="contact-link">
+        <div class="contact-link-icon">📍</div>
+        <span class="contact-link-label">Dakar, SN</span>
+      </a>
+    </div>
+    <a href="/cdn-cgi/l/email-protection#7003150219171e151d12110915041819111d4630171d11191c5e131f1d" class="btn-primary reveal">
+      → Envoyer un message
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-copy">© 2025 Serigne Mbaye THIAM — ISE</div>
+  <div class="footer-refs">
+    <div class="footer-ref">
+      <strong>El Hadji Yaya LY</strong>
+      Bureau des Statistiques Sociales · ANSD
+    </div>
+    <div class="footer-ref">
+      <strong>Amath DIAGO</strong>
+      Division Statistiques Conjoncturelles · ANSD
+    </div>
+    <div class="footer-ref">
+      <strong>Ismaila DIALLO</strong>
+      ISE Comptable national · ANSD
+    </div>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
+      ring.style.transform = 'translate(-50%,-50%) scale(1.5)';
+      ring.style.borderColor = 'rgba(201,168,76,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.borderColor = 'rgba(201,168,76,0.5)';
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+  // Active nav link
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const navObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        navLinks.forEach(a => {
+          a.style.color = a.getAttrib
