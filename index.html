@@ -3,688 +3,221 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Serigne Mbaye THIAM — ISE | Data & Finance</title>
+<title>Serigne Mbaye THIAM — ISE | Data · Finance · Formations</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0a0f;
     --bg2: #10101a;
     --surface: #14141f;
+    --surface2: #1a1a28;
     --border: rgba(180,160,120,0.15);
     --gold: #c9a84c;
     --gold2: #e8c97a;
-    --gold-dim: rgba(201,168,76,0.12);
+    --gold-dim: rgba(201,168,76,0.10);
     --text: #e8e4dc;
     --muted: #8a8578;
-    --accent: #4a9eff;
     --white: #f5f2ec;
-  }
-
-  * { margin:0; padding:0; box-sizing:border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* Custom Cursor */
-  .cursor {
-    position: fixed;
-    width: 8px; height: 8px;
-    background: var(--gold);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9999;
-    transform: translate(-50%,-50%);
-    transition: transform 0.1s ease;
-  }
-  .cursor-ring {
-    position: fixed;
-    width: 32px; height: 32px;
-    border: 1px solid rgba(201,168,76,0.5);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 9998;
-    transform: translate(-50%,-50%);
-    transition: all 0.15s ease;
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 3px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--gold); }
-
-  /* Nav */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 60px;
-    background: linear-gradient(to bottom, rgba(10,10,15,0.95), transparent);
-    backdrop-filter: blur(6px);
-  }
-
-  .nav-logo {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800;
-    font-size: 13px;
-    letter-spacing: 0.25em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 36px;
-    list-style: none;
-  }
-
-  .nav-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-
-  /* Hero */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    padding: 0 60px;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 60% at 70% 50%, rgba(201,168,76,0.06) 0%, transparent 70%),
-      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(74,158,255,0.04) 0%, transparent 60%);
-  }
-
-  .hero-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 90% 90% at center, black 30%, transparent 80%);
-  }
-
-  .hero-number {
-    position: absolute;
-    right: 60px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(140px, 20vw, 260px);
-    font-weight: 300;
-    color: rgba(201,168,76,0.06);
-    letter-spacing: -0.05em;
-    line-height: 1;
-    user-select: none;
-    pointer-events: none;
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 2;
-    max-width: 760px;
-  }
-
-  .hero-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 28px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-  .hero-tag::before {
-    content: '';
-    width: 40px; height: 1px;
-    background: var(--gold);
-  }
-
-  .hero-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(52px, 7vw, 96px);
-    font-weight: 300;
-    line-height: 1.0;
-    color: var(--white);
-    margin-bottom: 6px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.35s forwards;
-  }
-  .hero-name em {
-    font-style: italic;
-    color: var(--gold2);
-  }
-
-  .hero-subtitle {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(13px, 1.5vw, 16px);
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 36px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.5s forwards;
-  }
-
-  .hero-bio {
-    font-size: 13px;
-    line-height: 2;
-    color: var(--muted);
-    max-width: 520px;
-    margin-bottom: 48px;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.65s forwards;
-  }
-
-  .hero-ctas {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.8s forwards;
-  }
-
-  .btn-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 28px;
-    background: var(--gold);
-    color: var(--bg);
-    font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-  .btn-primary:hover {
-    background: var(--gold2);
-    transform: translateY(-2px);
-  }
-
-  .btn-outline {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 28px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    font-family: 'Syne', sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    text-decoration: none;
-    transition: all 0.3s;
-  }
-  .btn-outline:hover {
-    border-color: var(--gold);
-    color: var(--gold);
-    transform: translateY(-2px);
-  }
-
-  /* Sections */
-  section {
-    padding: 100px 60px;
-    position: relative;
-  }
-
-  .section-label {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    font-size: 10px;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 60px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-    max-width: 200px;
-  }
-
-  /* About */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-
-  .about-heading {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 5vw, 60px);
-    font-weight: 300;
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 28px;
-  }
-  .about-heading em { font-style: italic; color: var(--gold2); }
-
-  .about-text {
-    font-size: 13px;
-    line-height: 2.1;
-    color: var(--muted);
-    margin-bottom: 20px;
-  }
-
-  .stat-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-    margin-top: 48px;
-  }
-
-  .stat-card {
-    border: 1px solid var(--border);
-    padding: 28px;
-    background: var(--surface);
-    transition: border-color 0.3s;
-  }
-  .stat-card:hover { border-color: var(--gold); }
-
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 48px;
-    font-weight: 300;
-    color: var(--gold);
-    line-height: 1;
-    margin-bottom: 6px;
-  }
-
-  .stat-desc {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* Skills */
-  #competences { background: var(--bg2); }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-  }
-
-  .skill-block {
-    background: var(--surface);
-    padding: 40px 32px;
-    transition: background 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .skill-block::before {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 2px;
-    background: var(--gold);
-    transform: scaleX(0);
-    transition: transform 0.4s ease;
-    transform-origin: left;
-  }
-  .skill-block:hover::before { transform: scaleX(1); }
-  .skill-block:hover { background: rgba(201,168,76,0.05); }
-
-  .skill-icon {
-    font-size: 28px;
-    margin-bottom: 20px;
-    display: block;
-  }
-
-  .skill-title {
-    font-family: 'Syne', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--white);
-    margin-bottom: 16px;
-  }
-
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-  }
-
-  .tag {
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 5px 10px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    transition: all 0.2s;
-  }
-  .skill-block:hover .tag {
-    border-color: rgba(201,168,76,0.3);
-    color: var(--gold);
-  }
-
-  /* Experience */
-  .timeline {
-    position: relative;
-    padding-left: 32px;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 0; top: 8px; bottom: 0;
-    width: 1px;
-    background: var(--border);
-  }
-
-  .timeline-item {
-    position: relative;
-    margin-bottom: 56px;
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: all 0.6s ease;
-  }
-  .timeline-item.visible {
-    opacity: 1;
-    transform: translateX(0);
-  }
-
-  .timeline-dot {
-    position: absolute;
-    left: -38px;
-    top: 8px;
-    width: 13px; height: 13px;
-    border: 2px solid var(--gold);
-    background: var(--bg);
-    border-radius: 50%;
-    transition: background 0.3s;
-  }
-  .timeline-item:hover .timeline-dot { background: var(--gold); }
-
-  .timeline-date {
-    font-size: 10px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-
-  .timeline-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--white);
-    margin-bottom: 4px;
-  }
-
-  .timeline-org {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 14px;
-  }
-
-  /* Education */
-  #formation { background: var(--bg2); }
-
-  .edu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-  }
-
-  .edu-card {
-    background: var(--surface);
-    padding: 40px;
-    position: relative;
-    overflow: hidden;
-    transition: background 0.3s;
-  }
-  .edu-card:hover { background: rgba(201,168,76,0.04); }
-
-  .edu-year {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 60px;
-    font-weight: 300;
-    color: rgba(201,168,76,0.1);
-    position: absolute;
-    right: 24px;
-    top: 20px;
-    line-height: 1;
-    transition: color 0.3s;
-  }
-  .edu-card:hover .edu-year { color: rgba(201,168,76,0.18); }
-
-  .edu-badge {
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    border: 1px solid rgba(201,168,76,0.3);
-    padding: 4px 12px;
-    display: inline-block;
-    margin-bottom: 18px;
-  }
-
-  .edu-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--white);
-    line-height: 1.3;
-    margin-bottom: 8px;
-  }
-
-  .edu-school {
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* Tools */
-  .tools-marquee-wrap {
-    overflow: hidden;
-    margin: 0 -60px;
-    padding: 40px 0;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .tools-marquee {
-    display: flex;
-    gap: 48px;
-    width: max-content;
-    animation: marquee 28s linear infinite;
-  }
-
-  .tool-item {
-    font-family: 'Syne', sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    white-space: nowrap;
-    transition: color 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  .tool-item::after {
-    content: '◆';
-    font-size: 6px;
-    color: var(--gold);
-  }
-  .tool-item:hover { color: var(--gold); }
-
-  /* Contact */
-  #contact { background: var(--bg2); }
-
-  .contact-inner {
-    max-width: 680px;
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .contact-heading {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(44px, 7vw, 80px);
-    font-weight: 300;
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 24px;
-  }
-  .contact-heading em { font-style: italic; color: var(--gold2); }
-
-  .contact-sub {
-    font-size: 12px;
-    line-height: 2;
-    color: var(--muted);
-    margin-bottom: 48px;
-    letter-spacing: 0.05em;
-  }
-
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    gap: 32px;
-    flex-wrap: wrap;
-    margin-bottom: 60px;
-  }
-
-  .contact-link {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: transform 0.3s;
-  }
-  .contact-link:hover { transform: translateY(-4px); }
-
-  .contact-link-icon {
-    width: 52px; height: 52px;
-    border: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    background: var(--surface);
-    transition: border-color 0.3s, background 0.3s;
-  }
-  .contact-link:hover .contact-link-icon {
-    border-color: var(--gold);
-    background: var(--gold-dim);
-  }
-
-  .contact-link-label {
-    font-size: 9px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .contact-link:hover .contact-link-label { color: var(--gold); }
-
-  /* Footer */
-  footer {
-    padding: 28px 60px;
-    border-top: 1px solid var(--border);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 16px;
-  }
-
-  .footer-copy {
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  .footer-refs {
-    display: flex;
-    gap: 32px;
-  }
-
-  .footer-ref {
-    font-size: 10px;
-    color: var(--muted);
-    letter-spacing: 0.1em;
-  }
-  .footer-ref strong {
-    display: block;
-    color: var(--gold);
-    font-family: 'Syne', sans-serif;
-  }
-
-  /* Animations */
-  @keyframes fadeUp {
-    from { opacity:0; transform: translateY(24px); }
-    to { opacity:1; transform: translateY(0); }
-  }
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* Scroll reveal */
-  .reveal {
-    opacity: 0;
-    transform: translateY(32px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Responsive */
-  @media (max-width: 900px) {
-    nav { padding: 18px 24px; }
-    .nav-links { display: none; }
-    section { padding: 70px 24px; }
-    .hero { padding: 0 24px; }
-    .about-grid, .edu-grid, .skills-grid { grid-template-columns: 1fr; }
-    .tools-marquee-wrap { margin: 0 -24px; }
-    footer { padding: 24px; }
-    .hero-number { display: none; }
+    --green: #3ecf8e;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Mono',monospace;overflow-x:hidden;cursor:none;}
+  .cursor{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform 0.1s;}
+  .cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(201,168,76,0.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all 0.15s;}
+  ::-webkit-scrollbar{width:3px;}
+  ::-webkit-scrollbar-track{background:var(--bg);}
+  ::-webkit-scrollbar-thumb{background:var(--gold);}
+
+  /* NAV */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:18px 60px;background:linear-gradient(to bottom,rgba(10,10,15,0.97),transparent);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,168,76,0.06);}
+  .nav-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.25em;color:var(--gold);text-transform:uppercase;}
+  .nav-links{display:flex;gap:28px;list-style:none;}
+  .nav-links a{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.3s;}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-cv{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:var(--gold);color:var(--bg);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;}
+  .nav-cv:hover{background:var(--gold2);}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden;padding:0 60px;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 70% 50%,rgba(201,168,76,0.06) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(62,207,142,0.03) 0%,transparent 60%);}
+  .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(201,168,76,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,0.04) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse 90% 90% at center,black 30%,transparent 80%);}
+  .hero-watermark{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:'Cormorant Garamond',serif;font-size:clamp(120px,18vw,240px);font-weight:300;color:rgba(201,168,76,0.05);line-height:1;pointer-events:none;user-select:none;}
+  .hero-content{position:relative;z-index:2;max-width:760px;}
+  .hero-tag{display:inline-flex;align-items:center;gap:10px;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:28px;opacity:0;animation:fadeUp 0.8s 0.2s forwards;}
+  .hero-tag::before{content:'';width:40px;height:1px;background:var(--gold);}
+  .hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,96px);font-weight:300;line-height:1.0;color:var(--white);margin-bottom:6px;opacity:0;animation:fadeUp 0.8s 0.35s forwards;}
+  .hero-name em{font-style:italic;color:var(--gold2);}
+  .hero-subtitle{font-family:'Syne',sans-serif;font-size:clamp(11px,1.2vw,14px);font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-bottom:36px;opacity:0;animation:fadeUp 0.8s 0.5s forwards;}
+  .hero-bio{font-size:13px;line-height:2.1;color:var(--muted);max-width:520px;margin-bottom:48px;opacity:0;animation:fadeUp 0.8s 0.65s forwards;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp 0.8s 0.8s forwards;}
+
+  .btn-gold{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--gold);color:var(--bg);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;}
+  .btn-gold:hover{background:var(--gold2);transform:translateY(-2px);}
+  .btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;border:1px solid var(--border);color:var(--muted);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;}
+  .btn-outline:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-2px);}
+  .btn-green{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--green);color:#0a0a0f;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;}
+  .btn-green:hover{opacity:0.85;transform:translateY(-2px);}
+
+  /* SECTIONS */
+  section{padding:100px 60px;position:relative;}
+  .section-label{display:flex;align-items:center;gap:16px;font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:60px;}
+  .section-label::after{content:'';flex:1;height:1px;background:var(--border);max-width:200px;}
+
+  /* ABOUT */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+  .about-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4.5vw,58px);font-weight:300;line-height:1.1;color:var(--white);margin-bottom:28px;}
+  .about-heading em{font-style:italic;color:var(--gold2);}
+  .about-text{font-size:13px;line-height:2.1;color:var(--muted);margin-bottom:18px;}
+  .stat-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .stat-card{border:1px solid var(--border);padding:28px;background:var(--surface);transition:border-color 0.3s;}
+  .stat-card:hover{border-color:var(--gold);}
+  .stat-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:6px;}
+  .stat-desc{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+
+  /* MARQUEE */
+  .tools-marquee-wrap{overflow:hidden;margin:0 -60px;padding:36px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--bg2);}
+  .tools-marquee{display:flex;gap:48px;width:max-content;animation:marquee 28s linear infinite;}
+  .tool-item{font-family:'Syne',sans-serif;font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);white-space:nowrap;display:flex;align-items:center;gap:14px;}
+  .tool-item::after{content:'◆';font-size:6px;color:var(--gold);}
+
+  /* FORMATIONS */
+  #formations{background:var(--bg2);}
+  .formations-intro{font-size:13px;line-height:2.1;color:var(--muted);max-width:620px;margin-bottom:56px;}
+  .formations-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+  .formation-card{background:var(--surface);padding:44px 34px;position:relative;overflow:hidden;transition:background 0.3s;display:flex;flex-direction:column;}
+  .formation-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--gold2));transform:scaleX(0);transition:transform 0.4s ease;transform-origin:left;}
+  .formation-card:hover::after{transform:scaleX(1);}
+  .formation-card:hover{background:rgba(201,168,76,0.04);}
+  .formation-num{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;color:rgba(201,168,76,0.08);position:absolute;top:12px;right:20px;line-height:1;transition:color 0.3s;}
+  .formation-card:hover .formation-num{color:rgba(201,168,76,0.16);}
+  .formation-icon{font-size:32px;margin-bottom:20px;}
+  .formation-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;letter-spacing:0.06em;color:var(--white);margin-bottom:16px;}
+  .formation-desc{font-size:12px;line-height:2;color:var(--muted);margin-bottom:24px;}
+  .formation-modules-title{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+  .formation-module-item{font-size:11px;color:var(--muted);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:8px;}
+  .formation-module-item::before{content:'→';color:var(--gold);font-size:10px;flex-shrink:0;margin-top:1px;}
+  .formation-modules{margin-bottom:24px;}
+  .formation-meta{display:flex;flex-direction:column;gap:8px;margin-bottom:28px;}
+  .formation-meta-item{display:flex;align-items:flex-start;gap:10px;font-size:11px;color:var(--muted);}
+  .formation-meta-item span:first-child{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);min-width:72px;flex-shrink:0;}
+  .btn-formation{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border:1px solid var(--gold);color:var(--gold);font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;margin-top:auto;}
+  .btn-formation:hover{background:var(--gold);color:var(--bg);}
+
+  /* TESTIMONIALS */
+  .testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;}
+  .testimonial-card{background:var(--surface);border:1px solid var(--border);padding:32px;transition:border-color 0.3s;}
+  .testimonial-card:hover{border-color:rgba(201,168,76,0.4);}
+  .testimonial-quote{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:300;color:var(--gold);line-height:0.8;margin-bottom:16px;opacity:0.4;}
+  .testimonial-text{font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;line-height:1.7;color:var(--text);margin-bottom:24px;}
+  .testimonial-author{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);}
+  .testimonial-role{font-size:10px;color:var(--muted);margin-top:4px;}
+
+  /* COMPÉTENCES */
+  .skills-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
+  .skill-block{background:var(--surface);padding:40px 32px;transition:background 0.3s;position:relative;overflow:hidden;}
+  .skill-block::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transition:transform 0.4s ease;transform-origin:left;}
+  .skill-block:hover::before{transform:scaleX(1);}
+  .skill-block:hover{background:rgba(201,168,76,0.04);}
+  .skill-icon{font-size:28px;margin-bottom:20px;display:block;}
+  .skill-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--white);margin-bottom:16px;}
+  .skill-tags{display:flex;flex-wrap:wrap;gap:6px;}
+  .tag{font-size:9px;letter-spacing:0.15em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--border);color:var(--muted);transition:all 0.2s;}
+  .skill-block:hover .tag{border-color:rgba(201,168,76,0.3);color:var(--gold);}
+
+  /* EXPÉRIENCES */
+  #experience{background:var(--bg2);}
+  .exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;}
+  .timeline{position:relative;padding-left:32px;}
+  .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:0;width:1px;background:var(--border);}
+  .timeline-item{position:relative;margin-bottom:44px;opacity:0;transform:translateX(-16px);transition:all 0.6s ease;}
+  .timeline-item.visible{opacity:1;transform:translateX(0);}
+  .timeline-dot{position:absolute;left:-38px;top:8px;width:13px;height:13px;border:2px solid var(--gold);background:var(--bg);border-radius:50%;transition:background 0.3s;}
+  .timeline-item:hover .timeline-dot{background:var(--gold);}
+  .timeline-date{font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+  .timeline-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--white);margin-bottom:4px;}
+  .timeline-org{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+
+  /* DIPLÔMES */
+  .edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+  .edu-card{background:var(--surface);padding:40px;position:relative;overflow:hidden;transition:background 0.3s;}
+  .edu-card:hover{background:rgba(201,168,76,0.04);}
+  .edu-year{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:300;color:rgba(201,168,76,0.1);position:absolute;right:24px;top:20px;line-height:1;transition:color 0.3s;}
+  .edu-card:hover .edu-year{color:rgba(201,168,76,0.18);}
+  .edu-badge{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(201,168,76,0.3);padding:4px 12px;display:inline-block;margin-bottom:18px;}
+  .edu-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--white);line-height:1.3;margin-bottom:8px;}
+  .edu-school{font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);}
+
+  /* CV SECTION */
+  #cv-section{background:linear-gradient(135deg,var(--surface) 0%,var(--bg2) 100%);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:80px 60px;}
+  .cv-inner{display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap;}
+  .cv-label{font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;}
+  .cv-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,4vw,52px);font-weight:300;color:var(--white);line-height:1.1;margin-bottom:12px;}
+  .cv-heading em{font-style:italic;color:var(--gold2);}
+  .cv-sub{font-size:12px;line-height:2;color:var(--muted);max-width:420px;margin-bottom:28px;}
+  .cv-right{display:flex;flex-direction:column;align-items:center;gap:14px;}
+  .cv-preview{width:160px;height:210px;border:1px solid var(--border);background:var(--surface2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;position:relative;overflow:hidden;}
+  .cv-preview::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--gold),var(--gold2));}
+  .cv-preview-icon{font-size:36px;}
+  .cv-preview-pages{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);}
+  .cv-preview-text{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);}
+
+  /* CONTACT */
+  #contact{background:var(--bg);}
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+  .contact-heading{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,62px);font-weight:300;line-height:1.1;color:var(--white);margin-bottom:24px;}
+  .contact-heading em{font-style:italic;color:var(--gold2);}
+  .contact-sub{font-size:13px;line-height:2.1;color:var(--muted);margin-bottom:36px;}
+  .contact-infos{display:flex;flex-direction:column;gap:14px;margin-bottom:32px;}
+  .contact-info-item{display:flex;align-items:center;gap:16px;padding:16px 18px;border:1px solid var(--border);background:var(--surface);text-decoration:none;transition:all 0.3s;}
+  .contact-info-item:hover{border-color:var(--gold);background:var(--gold-dim);}
+  .contact-info-icon{font-size:18px;width:30px;text-align:center;}
+  .contact-info-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:3px;}
+  .contact-info-val{font-size:12px;color:var(--text);}
+  .whatsapp-btn{display:flex;align-items:center;justify-content:center;gap:12px;padding:16px 28px;background:#25d366;color:#fff;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;transition:all 0.3s;width:100%;}
+  .whatsapp-btn:hover{background:#1ebe5d;transform:translateY(-2px);}
+
+  /* FORM */
+  .contact-form{display:flex;flex-direction:column;gap:14px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .form-group{display:flex;flex-direction:column;gap:8px;}
+  .form-label{font-size:9px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);}
+  .form-input,.form-select,.form-textarea{background:var(--surface);border:1px solid var(--border);color:var(--text);font-family:'DM Mono',monospace;font-size:12px;padding:13px 16px;outline:none;transition:border-color 0.3s;width:100%;}
+  .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold);}
+  .form-input::placeholder,.form-textarea::placeholder{color:var(--muted);}
+  .form-select{appearance:none;cursor:pointer;}
+  .form-select option{background:var(--surface2);}
+  .form-textarea{resize:vertical;min-height:120px;}
+  .form-submit{padding:16px;background:var(--gold);color:var(--bg);font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;border:none;cursor:pointer;transition:all 0.3s;}
+  .form-submit:hover{background:var(--gold2);}
+
+  /* FOOTER */
+  footer{padding:32px 60px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+  .footer-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.25em;color:var(--gold);}
+  .footer-copy{font-size:10px;letter-spacing:0.15em;color:var(--muted);margin-top:6px;}
+  .footer-refs{display:flex;gap:28px;flex-wrap:wrap;}
+  .footer-ref{font-size:10px;color:var(--muted);}
+  .footer-ref strong{display:block;color:var(--gold);font-family:'Syne',sans-serif;margin-bottom:2px;}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.8s ease,transform 0.8s ease;}
+  .reveal.visible{opacity:1;transform:translateY(0);}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  @media(max-width:900px){
+    nav{padding:16px 20px;}
+    .nav-links{display:none;}
+    section{padding:60px 20px;}
+    #cv-section{padding:60px 20px;}
+    .hero{padding:0 20px;padding-top:80px;}
+    .hero-watermark{display:none;}
+    .about-grid,.contact-grid,.exp-grid,.form-row{grid-template-columns:1fr;gap:40px;}
+    .formations-grid,.skills-grid,.edu-grid,.testimonials-grid{grid-template-columns:1fr;}
+    .tools-marquee-wrap{margin:0 -20px;}
+    footer{padding:24px 20px;flex-direction:column;align-items:flex-start;}
+    .cv-inner{flex-direction:column;}
   }
 </style>
 </head>
@@ -695,34 +228,34 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">SMT</div>
+  <div class="nav-logo">Serigne Mbaye THIAM</div>
   <ul class="nav-links">
     <li><a href="#apropos">À propos</a></li>
+    <li><a href="#formations">Formations</a></li>
     <li><a href="#competences">Compétences</a></li>
     <li><a href="#experience">Expériences</a></li>
-    <li><a href="#formation">Formation</a></li>
+    <li><a href="#diplomes">Diplômes</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <a href="CV_Serigne_Mbaye_THIAM.pdf" download class="nav-cv">↓ Télécharger CV</a>
 </nav>
 
 <!-- HERO -->
 <section class="hero" id="hero">
   <div class="hero-bg"></div>
   <div class="hero-grid"></div>
-  <div class="hero-number">ISE</div>
-
+  <div class="hero-watermark">ISE</div>
   <div class="hero-content">
-    <div class="hero-tag">Ingénieur Statisticien Économiste</div>
+    <div class="hero-tag">Ingénieur Statisticien Économiste · ENSAE Dakar</div>
     <h1 class="hero-name">Serigne Mbaye<br><em>THIAM</em></h1>
-    <p class="hero-subtitle">Data · Finance · Actuariat · Évaluation d'Impact</p>
+    <p class="hero-subtitle">Data · Finance · Actuariat · Formations professionnelles</p>
     <p class="hero-bio">
-      Statisticien économiste diplômé de l'ENSAE Dakar, spécialisé en Finance & Actuariat. 
-      Actuellement chargé de projet à l'ANSD, avec une expertise couvrant la Business Intelligence, 
-      l'économétrie avancée et le suivi-évaluation des politiques publiques.
+      Statisticien économiste diplômé de l'ENSAE, spécialisé en Finance & Actuariat. Chargé de projet à l'ANSD, formateur certifié en Excel, Power BI et bases de données relationnelles, et consultant indépendant en Business Intelligence et suivi-évaluation depuis 2022.
     </p>
     <div class="hero-ctas">
-      <a href="#contact" class="btn-primary">→ Me contacter</a>
-      <a href="#experience" class="btn-outline">↓ Voir mon parcours</a>
+      <a href="#formations" class="btn-gold">→ Mes formations</a>
+      <a href="CV_Serigne_Mbaye_THIAM.pdf" download class="btn-green">↓ Télécharger mon CV</a>
+      <a href="#contact" class="btn-outline">Me contacter</a>
     </div>
   </div>
 </section>
@@ -734,344 +267,309 @@
     <div>
       <h2 class="about-heading reveal">Expertise <em>quantitative</em> au service de la décision</h2>
       <p class="about-text reveal">
-        Depuis 2022, j'accompagne des structures publiques et privées en traitement de données, suivi-évaluation et Business Intelligence. Diplômé de l'ENSAE en 2024, j'ai rejoint l'ANSD (Agence Nationale de la Statistique et de la Démographie) comme chargé de projet.
+        Depuis 2022, j'accompagne des structures publiques et privées en traitement de données, suivi-évaluation et Business Intelligence. Diplômé de l'ENSAE en 2024, j'ai rejoint l'ANSD comme chargé de projet tout en poursuivant mes activités de consultance et de formation.
       </p>
       <p class="about-text reveal">
-        Mon profil hybride combine rigueur statistique, maîtrise des outils Big Data et compréhension fine des enjeux économiques et financiers — des atouts pour des missions à fort impact.
+        Formateur certifié, j'anime des sessions pratiques sur <strong style="color:var(--gold)">Excel</strong>, <strong style="color:var(--gold)">Power BI</strong> et les <strong style="color:var(--gold)">bases de données relationnelles</strong> — des compétences essentielles pour les équipes souhaitant piloter leur activité par la donnée.
+      </p>
+      <p class="about-text reveal">
+        Mon profil hybride combine rigueur statistique, maîtrise des outils Big Data et compréhension fine des enjeux économiques et financiers, avec un fort engagement pour la transmission du savoir.
       </p>
     </div>
-    <div>
-      <div class="stat-row reveal">
-        <div class="stat-card">
-          <div class="stat-num">3+</div>
-          <div class="stat-desc">Années de consultance</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">7+</div>
-          <div class="stat-desc">Missions terrain</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">15+</div>
-          <div class="stat-desc">Outils maîtrisés</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-num">5</div>
-          <div class="stat-desc">Certifications pro</div>
-        </div>
+    <div class="stat-row reveal">
+      <div class="stat-card">
+        <div class="stat-num">3+</div>
+        <div class="stat-desc">Années de consultance</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-desc">Formations dispensées</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">15+</div>
+        <div class="stat-desc">Outils maîtrisés</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-desc">Certifications pro</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- OUTILS - MARQUEE -->
+<!-- MARQUEE -->
 <div class="tools-marquee-wrap">
   <div class="tools-marquee">
-    <span class="tool-item">Python</span>
-    <span class="tool-item">R</span>
-    <span class="tool-item">Power BI</span>
-    <span class="tool-item">Tableau</span>
-    <span class="tool-item">STATA</span>
-    <span class="tool-item">SPSS</span>
-    <span class="tool-item">PostgreSQL</span>
-    <span class="tool-item">Django</span>
-    <span class="tool-item">FastAPI</span>
-    <span class="tool-item">Spark</span>
-    <span class="tool-item">Hadoop</span>
-    <span class="tool-item">AWS</span>
-    <span class="tool-item">ArcGIS</span>
-    <span class="tool-item">QGIS</span>
-    <span class="tool-item">SAS</span>
-    <span class="tool-item">VBA</span>
-    <span class="tool-item">KoboToolbox</span>
-    <span class="tool-item">ODK</span>
-    <!-- duplicate for seamless loop -->
-    <span class="tool-item">Python</span>
-    <span class="tool-item">R</span>
-    <span class="tool-item">Power BI</span>
-    <span class="tool-item">Tableau</span>
-    <span class="tool-item">STATA</span>
-    <span class="tool-item">SPSS</span>
-    <span class="tool-item">PostgreSQL</span>
-    <span class="tool-item">Django</span>
-    <span class="tool-item">FastAPI</span>
-    <span class="tool-item">Spark</span>
-    <span class="tool-item">Hadoop</span>
-    <span class="tool-item">AWS</span>
-    <span class="tool-item">ArcGIS</span>
-    <span class="tool-item">QGIS</span>
-    <span class="tool-item">SAS</span>
-    <span class="tool-item">VBA</span>
-    <span class="tool-item">KoboToolbox</span>
-    <span class="tool-item">ODK</span>
+    <span class="tool-item">Excel</span><span class="tool-item">Power BI</span><span class="tool-item">SQL</span><span class="tool-item">PostgreSQL</span><span class="tool-item">Python</span><span class="tool-item">R</span><span class="tool-item">STATA</span><span class="tool-item">SPSS</span><span class="tool-item">DAX</span><span class="tool-item">Power Query</span><span class="tool-item">Django</span><span class="tool-item">FastAPI</span><span class="tool-item">Spark</span><span class="tool-item">Hadoop</span><span class="tool-item">AWS</span><span class="tool-item">ArcGIS</span><span class="tool-item">QGIS</span><span class="tool-item">KoboToolbox</span><span class="tool-item">SAS</span><span class="tool-item">VBA</span>
+    <span class="tool-item">Excel</span><span class="tool-item">Power BI</span><span class="tool-item">SQL</span><span class="tool-item">PostgreSQL</span><span class="tool-item">Python</span><span class="tool-item">R</span><span class="tool-item">STATA</span><span class="tool-item">SPSS</span><span class="tool-item">DAX</span><span class="tool-item">Power Query</span><span class="tool-item">Django</span><span class="tool-item">FastAPI</span><span class="tool-item">Spark</span><span class="tool-item">Hadoop</span><span class="tool-item">AWS</span><span class="tool-item">ArcGIS</span><span class="tool-item">QGIS</span><span class="tool-item">KoboToolbox</span><span class="tool-item">SAS</span><span class="tool-item">VBA</span>
   </div>
 </div>
 
+<!-- FORMATIONS -->
+<section id="formations">
+  <div class="section-label">02 — Formations professionnelles</div>
+  <p class="formations-intro reveal">
+    Je propose des formations pratiques et accessibles, conçues pour les professionnels, équipes d'entreprise et étudiants souhaitant monter en compétences sur les outils de la donnée. Chaque formation est adaptable en intra-entreprise ou en sessions ouvertes, en présentiel ou à distance.
+  </p>
+
+  <div class="formations-grid">
+    <!-- Excel -->
+    <div class="formation-card reveal">
+      <div class="formation-num">01</div>
+      <div class="formation-icon">📊</div>
+      <div class="formation-title">Maîtrise d'Excel</div>
+      <p class="formation-desc">De la prise en main aux fonctions avancées, cette formation transforme Excel en véritable outil d'analyse et d'automatisation. Idéale pour les professionnels qui veulent gagner du temps et fiabiliser leurs rapports.</p>
+      <div class="formation-modules">
+        <div class="formation-modules-title">Programme</div>
+        <div class="formation-module-item">Formules avancées (INDEX, EQUIV, SI imbriqués…)</div>
+        <div class="formation-module-item">Tableaux croisés dynamiques</div>
+        <div class="formation-module-item">Graphiques & mise en forme conditionnelle</div>
+        <div class="formation-module-item">Macros VBA & automatisation</div>
+        <div class="formation-module-item">Gestion et nettoyage de données</div>
+      </div>
+      <div class="formation-meta">
+        <div class="formation-meta-item"><span>Durée</span>2 à 5 jours selon le niveau</div>
+        <div class="formation-meta-item"><span>Mode</span>Présentiel · En ligne · Intra</div>
+        <div class="formation-meta-item"><span>Niveau</span>Débutant → Avancé</div>
+      </div>
+      <a href="#contact" class="btn-formation">→ Réserver</a>
+    </div>
+
+    <!-- Power BI -->
+    <div class="formation-card reveal" style="transition-delay:0.12s">
+      <div class="formation-num">02</div>
+      <div class="formation-icon">📈</div>
+      <div class="formation-title">Power BI & Business Intelligence</div>
+      <p class="formation-desc">Apprenez à connecter vos données, les modéliser et créer des tableaux de bord interactifs qui facilitent la prise de décision. Formation orientée pratique avec des cas réels.</p>
+      <div class="formation-modules">
+        <div class="formation-modules-title">Programme</div>
+        <div class="formation-module-item">Connexion aux sources de données (Excel, SQL, Web…)</div>
+        <div class="formation-module-item">Power Query & transformation ETL</div>
+        <div class="formation-module-item">Modélisation et relations entre tables</div>
+        <div class="formation-module-item">Langage DAX & calculs avancés</div>
+        <div class="formation-module-item">Création de dashboards interactifs</div>
+        <div class="formation-module-item">Publication sur Power BI Service</div>
+      </div>
+      <div class="formation-meta">
+        <div class="formation-meta-item"><span>Durée</span>3 à 5 jours</div>
+        <div class="formation-meta-item"><span>Mode</span>Présentiel · En ligne · Intra</div>
+        <div class="formation-meta-item"><span>Niveau</span>Débutant → Intermédiaire</div>
+      </div>
+      <a href="#contact" class="btn-formation">→ Réserver</a>
+    </div>
+
+    <!-- BDD -->
+    <div class="formation-card reveal" style="transition-delay:0.24s">
+      <div class="formation-num">03</div>
+      <div class="formation-icon">🗄️</div>
+      <div class="formation-title">Bases de données relationnelles</div>
+      <p class="formation-desc">Comprenez la logique des bases de données, concevez des modèles robustes et interrogez vos données avec SQL. Une formation indispensable pour tout professionnel de la donnée.</p>
+      <div class="formation-modules">
+        <div class="formation-modules-title">Programme</div>
+        <div class="formation-module-item">Concepts fondamentaux & modélisation MERISE/UML</div>
+        <div class="formation-module-item">SQL : SELECT, JOIN, GROUP BY, sous-requêtes</div>
+        <div class="formation-module-item">Conception et normalisation (1NF, 2NF, 3NF)</div>
+        <div class="formation-module-item">SGBD : MySQL, PostgreSQL, Access</div>
+        <div class="formation-module-item">Introduction au NoSQL (MongoDB)</div>
+      </div>
+      <div class="formation-meta">
+        <div class="formation-meta-item"><span>Durée</span>3 à 4 jours</div>
+        <div class="formation-meta-item"><span>Mode</span>Présentiel · En ligne · Intra</div>
+        <div class="formation-meta-item"><span>Niveau</span>Débutant → Intermédiaire</div>
+      </div>
+      <a href="#contact" class="btn-formation">→ Réserver</a>
+    </div>
+  </div>
+
+  <!-- TÉMOIGNAGES -->
+  <div class="section-label" style="margin-top:80px">Témoignages</div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card reveal">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">La formation Power BI était très bien structurée. En 3 jours, notre équipe est passée de zéro à des dashboards opérationnels. Serigne a su adapter le contenu à nos besoins métier.</p>
+      <div class="testimonial-author">Responsable Contrôle de Gestion</div>
+      <div class="testimonial-role">Entreprise privée · Dakar</div>
+    </div>
+    <div class="testimonial-card reveal" style="transition-delay:0.1s">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">Excellente pédagogie, exemples concrets tirés du secteur public. La formation Excel a considérablement amélioré notre reporting mensuel. Je recommande vivement.</p>
+      <div class="testimonial-author">Chef de Service Planning</div>
+      <div class="testimonial-role">Organisation publique · Sénégal</div>
+    </div>
+    <div class="testimonial-card reveal" style="transition-delay:0.2s">
+      <div class="testimonial-quote">"</div>
+      <p class="testimonial-text">La formation bases de données nous a donné une vraie autonomie sur nos données. Le formateur est disponible, pédagogue et très maître de son sujet.</p>
+      <div class="testimonial-author">Analyste Données</div>
+      <div class="testimonial-role">ONG internationale · Dakar</div>
+    </div>
+  </div>
+</section>
+
 <!-- COMPÉTENCES -->
-<section id="competences">
-  <div class="section-label">02 — Compétences</div>
+<section id="competences" style="background:var(--bg2)">
+  <div class="section-label">03 — Compétences</div>
   <div class="skills-grid">
-    <div class="skill-block reveal">
-      <span class="skill-icon">📊</span>
-      <div class="skill-title">Business Intelligence</div>
-      <div class="skill-tags">
-        <span class="tag">Power BI</span>
-        <span class="tag">Tableau</span>
-        <span class="tag">DAX</span>
-        <span class="tag">Power Query</span>
-        <span class="tag">KPI Modeling</span>
-        <span class="tag">ETL</span>
-      </div>
-    </div>
-    <div class="skill-block reveal" style="transition-delay:0.1s">
-      <span class="skill-icon">🤖</span>
-      <div class="skill-title">Machine Learning</div>
-      <div class="skill-tags">
-        <span class="tag">Supervisé</span>
-        <span class="tag">Non-supervisé</span>
-        <span class="tag">Reinforcement</span>
-        <span class="tag">Clustering</span>
-        <span class="tag">Classification</span>
-      </div>
-    </div>
-    <div class="skill-block reveal" style="transition-delay:0.2s">
-      <span class="skill-icon">📐</span>
-      <div class="skill-title">Économétrie</div>
-      <div class="skill-tags">
-        <span class="tag">Modèles linéaires</span>
-        <span class="tag">Séries temporelles</span>
-        <span class="tag">Panel data</span>
-        <span class="tag">Bayésien</span>
-        <span class="tag">Finance</span>
-      </div>
-    </div>
-    <div class="skill-block reveal" style="transition-delay:0.1s">
-      <span class="skill-icon">🛡️</span>
-      <div class="skill-title">Actuariat & Risque</div>
-      <div class="skill-tags">
-        <span class="tag">Tarification Vie</span>
-        <span class="tag">IARD</span>
-        <span class="tag">VaR</span>
-        <span class="tag">Monte Carlo</span>
-        <span class="tag">Bâle III</span>
-        <span class="tag">Stress test</span>
-      </div>
-    </div>
-    <div class="skill-block reveal" style="transition-delay:0.2s">
-      <span class="skill-icon">🔬</span>
-      <div class="skill-title">Évaluation d'Impact</div>
-      <div class="skill-tags">
-        <span class="tag">RCT</span>
-        <span class="tag">DiD</span>
-        <span class="tag">PSM</span>
-        <span class="tag">Variables instrumentales</span>
-        <span class="tag">RDD</span>
-      </div>
-    </div>
-    <div class="skill-block reveal" style="transition-delay:0.3s">
-      <span class="skill-icon">🗄️</span>
-      <div class="skill-title">Data Engineering</div>
-      <div class="skill-tags">
-        <span class="tag">PostgreSQL</span>
-        <span class="tag">MySQL</span>
-        <span class="tag">MongoDB</span>
-        <span class="tag">Spark</span>
-        <span class="tag">Hadoop</span>
-        <span class="tag">AWS</span>
-      </div>
-    </div>
+    <div class="skill-block reveal"><span class="skill-icon">📊</span><div class="skill-title">Business Intelligence</div><div class="skill-tags"><span class="tag">Power BI</span><span class="tag">Tableau</span><span class="tag">DAX</span><span class="tag">Power Query</span><span class="tag">KPI</span><span class="tag">ETL</span></div></div>
+    <div class="skill-block reveal" style="transition-delay:0.1s"><span class="skill-icon">🤖</span><div class="skill-title">Machine Learning</div><div class="skill-tags"><span class="tag">Supervisé</span><span class="tag">Non-supervisé</span><span class="tag">Clustering</span><span class="tag">Classification</span><span class="tag">Régression</span></div></div>
+    <div class="skill-block reveal" style="transition-delay:0.2s"><span class="skill-icon">📐</span><div class="skill-title">Économétrie</div><div class="skill-tags"><span class="tag">Modèles linéaires</span><span class="tag">Séries temporelles</span><span class="tag">Panel data</span><span class="tag">Bayésien</span><span class="tag">Finance</span></div></div>
+    <div class="skill-block reveal"><span class="skill-icon">🛡️</span><div class="skill-title">Actuariat & Risque</div><div class="skill-tags"><span class="tag">Tarification</span><span class="tag">Provisionnement</span><span class="tag">VaR</span><span class="tag">Monte Carlo</span><span class="tag">Bâle III</span><span class="tag">Stress test</span></div></div>
+    <div class="skill-block reveal" style="transition-delay:0.1s"><span class="skill-icon">🔬</span><div class="skill-title">Évaluation d'Impact</div><div class="skill-tags"><span class="tag">RCT</span><span class="tag">DiD</span><span class="tag">PSM</span><span class="tag">IV</span><span class="tag">RDD</span></div></div>
+    <div class="skill-block reveal" style="transition-delay:0.2s"><span class="skill-icon">🗄️</span><div class="skill-title">Data Engineering</div><div class="skill-tags"><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">MongoDB</span><span class="tag">Spark</span><span class="tag">Hadoop</span><span class="tag">AWS</span></div></div>
   </div>
 </section>
 
 <!-- EXPÉRIENCES -->
 <section id="experience">
-  <div class="section-label">03 — Expériences</div>
-  <div class="timeline">
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date">Depuis octobre 2025</div>
-      <div class="timeline-title">Chargé de projet — DSDS</div>
-      <div class="timeline-org">ANSD · Dakar, Sénégal · ENES & EHCVM</div>
+  <div class="section-label">04 — Expériences professionnelles</div>
+  <div class="exp-grid">
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:32px;">Institutions publiques</div>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Depuis oct. 2025</div><div class="timeline-title">Chargé de projet — DSDS</div><div class="timeline-org">ANSD · ENES & EHCVM</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Fév. — Sept. 2025</div><div class="timeline-title">Chargé de projet — DSECN</div><div class="timeline-org">ANSD · EHCVM prix</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Avr. — Mai 2024</div><div class="timeline-title">Co-chef équipe — Applications de collecte</div><div class="timeline-org">ANSD · Dakar</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Mai — Juin 2023</div><div class="timeline-title">Concepteur d'enquête d'évaluation</div><div class="timeline-org">ANSD – IRD · Dakar</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Sept. — Oct. 2022</div><div class="timeline-title">Collecte de données — Santé</div><div class="timeline-org">ADEMAS · Kaolack</div></div>
+      </div>
     </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date">Fév. 2025 — Sept. 2025</div>
-      <div class="timeline-title">Chargé de projet — DSECN</div>
-      <div class="timeline-org">ANSD · Dakar, Sénégal · EHCVM prix</div>
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:32px;">Secteur privé & consultance</div>
+      <div class="timeline">
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Janv. 2022 — Juil. 2024</div><div class="timeline-title">Consultant indépendant</div><div class="timeline-org">Data · Suivi-Évaluation · BI · Formations</div></div>
+        <div class="timeline-item"><div class="timeline-dot"></div><div class="timeline-date">Mai — Août 2024</div><div class="timeline-title">Business Analyst</div><div class="timeline-org">SONATEL · Direction des Opérations Internationales</div></div>
+      </div>
     </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date">Mai 2024 — Août 2024</div>
-      <div class="timeline-title">Business Analyst</div>
-      <div class="timeline-org">SONATEL · Direction des Opérations Internationales (DOI)</div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date">Avr. 2024 — Mai 2024</div>
-      <div class="timeline-title">Co-chef d'équipe — Applications de collecte</div>
-      <div class="timeline-org">ANSD · Dakar, Sénégal</div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date">Janv. 2022 — Juil. 2024</div>
-      <div class="timeline-title">Consultant indépendant</div>
-      <div class="timeline-org">Traitement de données · Suivi-Évaluation · Business Intelligence</div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date">Mai 2023 — Juin 2023</div>
-      <div class="timeline-title">Concepteur d'enquête d'évaluation</div>
-      <div class="timeline-org">ANSD – IRD · Dakar</div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-date">Sept. 2022 — Oct. 2022</div>
-      <div class="timeline-title">Collecte de données — Santé</div>
-      <div class="timeline-org">ADEMAS · Kaolack</div>
-    </div>
-
   </div>
 </section>
 
-<!-- FORMATION -->
-<section id="formation">
-  <div class="section-label">04 — Formation</div>
+<!-- DIPLÔMES -->
+<section id="diplomes" style="background:var(--bg2)">
+  <div class="section-label">05 — Formation académique</div>
   <div class="edu-grid reveal">
-    <div class="edu-card">
-      <div class="edu-year">2024</div>
-      <div class="edu-badge">Diplôme d'ingénieur</div>
-      <div class="edu-title">Ingénieur Statisticien Économiste</div>
-      <div class="edu-school">ENSAE — École Nationale de la Statistique et de l'Analyse Économique · Dakar</div>
-    </div>
-    <div class="edu-card">
-      <div class="edu-year">2021</div>
-      <div class="edu-badge">Licence</div>
-      <div class="edu-title">Mathématiques Appliquées à la Finance</div>
-      <div class="edu-school">Université Gaston Berger (UFR SAT) · Saint-Louis</div>
-    </div>
-    <div class="edu-card">
-      <div class="edu-year">2025</div>
-      <div class="edu-badge">Certification ONU</div>
-      <div class="edu-title">Planification & Suivi-Évaluation des Politiques Publiques</div>
-      <div class="edu-school">IDEP – Nations Unies · Dakar</div>
-    </div>
-    <div class="edu-card">
-      <div class="edu-year">2016</div>
-      <div class="edu-badge">Baccalauréat</div>
-      <div class="edu-title">Baccalauréat Scientifique</div>
-      <div class="edu-school">Lycée Malick SY · Thiès, Sénégal</div>
-    </div>
+    <div class="edu-card"><div class="edu-year">2024</div><div class="edu-badge">Diplôme d'ingénieur</div><div class="edu-title">Ingénieur Statisticien Économiste — Finance & Actuariat</div><div class="edu-school">ENSAE · École Nationale de la Statistique et de l'Analyse Économique · Dakar</div></div>
+    <div class="edu-card"><div class="edu-year">2021</div><div class="edu-badge">Licence</div><div class="edu-title">Mathématiques Appliquées à la Finance</div><div class="edu-school">Université Gaston Berger (UFR SAT) · Saint-Louis</div></div>
+    <div class="edu-card"><div class="edu-year">2025</div><div class="edu-badge">Certification ONU</div><div class="edu-title">Planification & Suivi-Évaluation des Politiques Publiques</div><div class="edu-school">IDEP – Nations Unies · Dakar</div></div>
+    <div class="edu-card"><div class="edu-year">2024</div><div class="edu-badge">Certification</div><div class="edu-title">Traitement de données satellitaires</div><div class="edu-school">Campus France & ANSD · Dakar</div></div>
   </div>
 </section>
+
+<!-- CV DOWNLOAD -->
+<div id="cv-section">
+  <div class="cv-inner">
+    <div class="cv-left reveal">
+      <div class="cv-label">Curriculum Vitae</div>
+      <h2 class="cv-heading">Téléchargez<br>mon <em>CV complet</em></h2>
+      <p class="cv-sub">Mon CV détaille l'ensemble de mon parcours académique, mes expériences professionnelles, mes compétences techniques et mes références. Disponible en PDF, prêt à partager.</p>
+      <a href="CV_Serigne_Mbaye_THIAM.pdf" download class="btn-gold">↓ Télécharger le CV (PDF)</a>
+    </div>
+    <div class="cv-right reveal">
+      <div class="cv-preview">
+        <div class="cv-preview-icon">📄</div>
+        <div class="cv-preview-pages">3 pages</div>
+        <div class="cv-preview-text">Format PDF</div>
+      </div>
+      <div style="font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">Mis à jour en 2025</div>
+    </div>
+  </div>
+</div>
 
 <!-- CONTACT -->
 <section id="contact">
-  <div class="contact-inner">
-    <h2 class="contact-heading reveal">Collaborons <em>ensemble</em></h2>
-    <p class="contact-sub reveal">
-      Disponible pour des missions de conseil, des collaborations académiques<br>
-      ou des opportunités professionnelles en finance, data et évaluation.
-    </p>
-    <div class="contact-links reveal">
-      <a href="/cdn-cgi/l/email-protection#394a5c4b505e575c545b58405c4d515058540f795e54585055175a5654" class="contact-link">
-        <div class="contact-link-icon">✉</div>
-        <span class="contact-link-label">Email</span>
-      </a>
-      <a href="tel:+221774858743" class="contact-link">
-        <div class="contact-link-icon">☎</div>
-        <span class="contact-link-label">Téléphone</span>
-      </a>
-      <a href="https://linkedin.com/in/s-m-t6/" target="_blank" class="contact-link">
-        <div class="contact-link-icon">in</div>
-        <span class="contact-link-label">LinkedIn</span>
-      </a>
-      <a href="#" class="contact-link">
-        <div class="contact-link-icon">📍</div>
-        <span class="contact-link-label">Dakar, SN</span>
+  <div class="section-label">06 — Contact</div>
+  <div class="contact-grid">
+    <div>
+      <h2 class="contact-heading reveal">Travaillons <em>ensemble</em></h2>
+      <p class="contact-sub reveal">Disponible pour des missions de conseil, des formations en entreprise, des collaborations académiques ou toute opportunité en data, finance et évaluation d'impact.</p>
+      <div class="contact-infos reveal">
+        <a href="mailto:serignembayethiam6@gmail.com" class="contact-info-item">
+          <div class="contact-info-icon">✉</div>
+          <div><div class="contact-info-label">Email</div><div class="contact-info-val">serignembayethiam6@gmail.com</div></div>
+        </a>
+        <a href="tel:+221774858743" class="contact-info-item">
+          <div class="contact-info-icon">☎</div>
+          <div><div class="contact-info-label">Téléphone</div><div class="contact-info-val">+221 77 485 87 43</div></div>
+        </a>
+        <a href="https://linkedin.com/in/s-m-t6/" target="_blank" class="contact-info-item">
+          <div class="contact-info-icon">in</div>
+          <div><div class="contact-info-label">LinkedIn</div><div class="contact-info-val">linkedin.com/in/s-m-t6/</div></div>
+        </a>
+        <div class="contact-info-item" style="cursor:default">
+          <div class="contact-info-icon">📍</div>
+          <div><div class="contact-info-label">Localisation</div><div class="contact-info-val">Dakar, Sénégal</div></div>
+        </div>
+      </div>
+      <a href="https://wa.me/221774858743?text=Bonjour%20Serigne%2C%20je%20souhaite%20vous%20contacter%20depuis%20votre%20portfolio." target="_blank" class="whatsapp-btn reveal">
+        <span>💬</span> Écrire sur WhatsApp
       </a>
     </div>
-    <a href="/cdn-cgi/l/email-protection#7003150219171e151d12110915041819111d4630171d11191c5e131f1d" class="btn-primary reveal">
-      → Envoyer un message
-    </a>
+
+    <div class="reveal" style="transition-delay:0.15s">
+      <div style="font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;">Envoyer un message</div>
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group"><label class="form-label">Prénom & Nom</label><input type="text" class="form-input" placeholder="Votre nom complet"></div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" placeholder="votre@email.com"></div>
+        </div>
+        <div class="form-group"><label class="form-label">Organisation</label><input type="text" class="form-input" placeholder="Entreprise, ONG, Institution…"></div>
+        <div class="form-group">
+          <label class="form-label">Objet de la demande</label>
+          <select class="form-select">
+            <option value="">Sélectionner…</option>
+            <option>Formation Excel</option>
+            <option>Formation Power BI</option>
+            <option>Formation Bases de données</option>
+            <option>Mission de consultance</option>
+            <option>Collaboration académique</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" placeholder="Décrivez votre besoin, le contexte, les dates envisagées…"></textarea></div>
+        <button class="form-submit" onclick="handleSubmit(this)">→ Envoyer le message</button>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-copy">© 2025 Serigne Mbaye THIAM — ISE</div>
+  <div>
+    <div class="footer-logo">SMT</div>
+    <div class="footer-copy">© 2025 Serigne Mbaye THIAM — ISE · Tous droits réservés</div>
+  </div>
   <div class="footer-refs">
-    <div class="footer-ref">
-      <strong>El Hadji Yaya LY</strong>
-      Bureau des Statistiques Sociales · ANSD
-    </div>
-    <div class="footer-ref">
-      <strong>Amath DIAGO</strong>
-      Division Statistiques Conjoncturelles · ANSD
-    </div>
-    <div class="footer-ref">
-      <strong>Ismaila DIALLO</strong>
-      ISE Comptable national · ANSD
-    </div>
+    <div class="footer-ref"><strong>El Hadji Yaya LY</strong>Bureau Statistiques Sociales · ANSD<br><span style="color:var(--gold);font-size:9px">yaya.ly@ansd.sn</span></div>
+    <div class="footer-ref"><strong>Amath DIAGO</strong>Division Statistiques Conjoncturelles · ANSD<br><span style="color:var(--gold);font-size:9px">Amath.DIAGO@ansd.sn</span></div>
+    <div class="footer-ref"><strong>Ismaila DIALLO</strong>ISE Comptable national · ANSD<br><span style="color:var(--gold);font-size:9px">ismaila.diallo@ansd.sn</span></div>
   </div>
 </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.left = mx + 'px';
-    cursor.style.top = my + 'px';
-  });
-
-  function animRing() {
-    rx += (mx - rx) * 0.12;
-    ry += (my - ry) * 0.12;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-    requestAnimationFrame(animRing);
-  }
-  animRing();
-
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.transform = 'translate(-50%,-50%) scale(2)';
-      ring.style.transform = 'translate(-50%,-50%) scale(1.5)';
-      ring.style.borderColor = 'rgba(201,168,76,0.8)';
-    });
-    el.addEventListener('mouseleave', () => {
-      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
-      ring.style.transform = 'translate(-50%,-50%) scale(1)';
-      ring.style.borderColor = 'rgba(201,168,76,0.5)';
-    });
+<script>
+  // Cursor
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+  (function anim(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+  document.querySelectorAll('a,button,select,input,textarea').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2)';ring.style.borderColor='rgba(201,168,76,0.9)';});
+    el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(201,168,76,0.5)';});
   });
 
   // Scroll reveal
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  }, { threshold: 0.12 });
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
+  document.querySelectorAll('.reveal,.timeline-item').forEach(el=>obs.observe(el));
 
-  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
-
-  // Active nav link
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-
-  const navObserver = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        navLinks.forEach(a => {
-          a.style.color = a.getAttrib
+  // Form → mailto
+  function handleSubmit(btn){
+    const f=btn.closest('.contact-form');
+    const inputs=f.querySelectorAll('input');
+    const name=inputs[0].value, email=inputs[1].value, org=inputs[2].value;
+    const obj=f.querySelector('select').value;
+    const msg=f.querySelector('textarea').value;
+    if(!name||!email||!msg){alert('Merci de remplir au minimum votre nom, email et message.');return;}
+    const sub=encodeURIComponent(obj||'Prise de contact — Portfolio');
+    const body=encodeURIComponent(`Bonjour Serigne,\n\nJe vous contacte depuis votre portfolio.\n\nNom : ${name}\nEmail : ${email}\nOrganisation : ${org}\nObjet : ${obj}\n\n${msg}\n\nCordialement,\n${name}`);
+    window.location.href=`mailto:serignembayethiam6@gmail.com?subject=${sub}&body=${body}`;
+  }
+</script>
+</body>
+</html>
