@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CV — Serigne Mbaye THIAM</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#8a5e20;--gold2:#b07d30;--text:#111;--muted:#555;--muted2:#888;--border:#d8d0c0;--bg:#faf8f4;--sidebar:#1a1710;--sidebar-text:#e8e4dc;--sidebar-muted:#a09585;--sidebar-gold:#c9a84c;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--text);font-size:13px;line-height:1.6;}
+
+  .print-bar{background:var(--sidebar);color:var(--sidebar-text);padding:12px 40px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10;}
+  .print-bar-left{font-size:11px;letter-spacing:0.15em;color:var(--sidebar-muted);text-transform:uppercase;}
+  .print-bar-btns{display:flex;gap:12px;}
+  .print-btn{padding:8px 20px;background:var(--sidebar-gold);color:#1a1710;font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;border:none;cursor:pointer;border-radius:2px;transition:opacity .2s;}
+  .print-btn:hover{opacity:.85;}
+  .back-btn{padding:8px 20px;border:1px solid rgba(255,255,255,.2);color:var(--sidebar-muted);font-family:'Plus Jakarta Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;text-decoration:none;border-radius:2px;display:inline-flex;align-items:center;gap:6px;}
+  .back-btn:hover{color:var(--sidebar-text);}
+
+  .cv-page{max-width:860px;margin:32px auto;background:#fff;box-shadow:0 4px 40px rgba(0,0,0,0.1);display:grid;grid-template-columns:260px 1fr;}
+
+  /* SIDEBAR */
+  .cv-sidebar{background:var(--sidebar);color:var(--sidebar-text);padding:44px 28px;display:flex;flex-direction:column;gap:32px;}
+
+  .cv-sidebar-name{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:400;line-height:1.15;color:#fff;margin-bottom:4px;}
+  .cv-sidebar-name em{display:block;font-style:italic;color:var(--sidebar-gold);}
+  .cv-sidebar-title{font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--sidebar-muted);margin-bottom:16px;font-weight:500;}
+  .cv-sidebar-divider{height:1px;background:rgba(255,255,255,.08);}
+
+  .cv-s-section-title{font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--sidebar-gold);font-weight:600;margin-bottom:14px;}
+
+  .cv-contact-list{display:flex;flex-direction:column;gap:10px;}
+  .cv-contact-item{display:flex;align-items:flex-start;gap:10px;font-size:11px;color:var(--sidebar-muted);}
+  .cv-contact-item b{color:var(--sidebar-text);font-weight:500;}
+  .cv-contact-icon{width:14px;flex-shrink:0;color:var(--sidebar-gold);margin-top:1px;}
+
+  .cv-skill-group{margin-bottom:18px;}
+  .cv-skill-group-title{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--sidebar-gold);margin-bottom:8px;font-weight:600;}
+  .cv-skill-list{display:flex;flex-wrap:wrap;gap:5px;}
+  .cv-skill-pill{font-size:10px;padding:3px 9px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);color:var(--sidebar-muted);border-radius:2px;}
+  .cv-skill-pill.main{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.3);color:var(--sidebar-gold);}
+
+  .cv-lang-item{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;}
+  .cv-lang-name{font-size:12px;color:var(--sidebar-text);font-weight:500;}
+  .cv-lang-level{font-size:10px;color:var(--sidebar-muted);}
+  .cv-lang-bar{height:3px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:4px;overflow:hidden;}
+  .cv-lang-fill{height:100%;background:var(--sidebar-gold);border-radius:2px;}
+
+  /* MAIN */
+  .cv-main{padding:44px 40px;display:flex;flex-direction:column;gap:28px;}
+
+  .cv-main-header{border-bottom:2px solid var(--gold);padding-bottom:20px;margin-bottom:4px;}
+  .cv-main-headline{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:var(--muted);line-height:1.7;}
+
+  .cv-section{}
+  .cv-section-title{font-size:9px;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .cv-section-title::after{content:'';flex:1;height:1px;background:var(--border);}
+
+  .cv-exp-item{margin-bottom:18px;padding-bottom:18px;border-bottom:1px solid rgba(216,208,192,.4);}
+  .cv-exp-item:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0;}
+  .cv-exp-header{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:4px;}
+  .cv-exp-title{font-weight:700;font-size:13px;color:var(--text);}
+  .cv-exp-date{font-size:10px;color:var(--gold2);font-weight:600;letter-spacing:0.05em;white-space:nowrap;flex-shrink:0;}
+  .cv-exp-org{font-size:11px;color:var(--muted);font-weight:500;margin-bottom:5px;}
+  .cv-exp-desc{font-size:11.5px;color:var(--muted);line-height:1.7;}
+
+  .cv-edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .cv-edu-item{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:14px 16px;}
+  .cv-edu-year{font-size:10px;color:var(--gold);font-weight:700;letter-spacing:0.1em;margin-bottom:4px;}
+  .cv-edu-degree{font-weight:700;font-size:12px;color:var(--text);margin-bottom:3px;line-height:1.3;}
+  .cv-edu-school{font-size:10.5px;color:var(--muted);}
+
+  .cv-certs{display:flex;flex-direction:column;gap:7px;}
+  .cv-cert-item{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;background:var(--bg);border-left:2px solid var(--gold);font-size:11.5px;}
+  .cv-cert-name{color:var(--text);font-weight:500;}
+  .cv-cert-org{font-size:10px;color:var(--muted);}
+
+  .cv-skills-main{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .cv-skill-main-group{background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:12px 14px;}
+  .cv-skill-main-title{font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px;}
+  .cv-skill-main-tags{display:flex;flex-wrap:wrap;gap:4px;}
+  .cv-tag{font-size:10px;padding:2px 8px;background:#fff;border:1px solid var(--border);color:var(--muted);border-radius:2px;}
+
+  .cv-atouts{display:flex;flex-wrap:wrap;gap:6px;}
+  .cv-atout{font-size:11px;padding:5px 12px;background:var(--bg);border:1px solid var(--border);border-radius:2px;color:var(--muted);font-weight:500;}
+
+  .cv-footer{border-top:1px solid var(--border);padding-top:12px;font-size:10px;color:var(--muted2);text-align:center;letter-spacing:0.1em;}
+
+  @media print{
+    .print-bar{display:none;}
+    body{background:#fff;}
+    .cv-page{margin:0;box-shadow:none;max-width:100%;}
+    .cv-sidebar{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  }
+</style>
+</head>
+<body>
+
+<div class="print-bar">
+  <div class="print-bar-left">CV — Serigne Mbaye THIAM · ISE</div>
+  <div class="print-bar-btns">
+    <a href="index.html" class="back-btn">← Retour au site</a>
+    <button class="print-btn" onclick="window.print()">🖨 Imprimer / PDF</button>
+  </div>
+</div>
+
+<div class="cv-page">
+
+  <!-- SIDEBAR -->
+  <aside class="cv-sidebar">
+
+    <div>
+      <p class="cv-sidebar-title">Curriculum Vitae</p>
+      <div class="cv-sidebar-name">Serigne Mbaye<br><em>THIAM</em></div>
+    </div>
+
+    <div class="cv-sidebar-divider"></div>
+
+    <!-- CONTACT -->
+    <div>
+      <div class="cv-s-section-title">Contact</div>
+      <div class="cv-contact-list">
+        <div class="cv-contact-item"><span class="cv-contact-icon">✉</span><div><b><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b8cbddcad1dfd6ddd5dad9c1ddccd0d1d9d58ef8dfd5d9d1d496dbd7d5">[email&#160;protected]</a></b></div></div>
+        <div class="cv-contact-item"><span class="cv-contact-icon">☎</span><div><b>+221 77 485 87 43</b></div></div>
+        <div class="cv-contact-item"><span class="cv-contact-icon">in</span><div><b>linkedin.com/in/s-m-t6/</b></div></div>
+        <div class="cv-contact-item"><span class="cv-contact-icon">📍</span><div><b>Dakar, Sénégal</b></div></div>
+        <div class="cv-contact-item"><span class="cv-contact-icon">🌐</span><div><a href="index.html" style="color:var(--sidebar-gold);text-decoration:none;font-weight:500;">Voir mon portfolio en ligne</a></div></div>
+      </div>
+    </div>
+
+    <div class="cv-sidebar-divider"></div>
+
+    <!-- COMPÉTENCES CLÉS -->
+    <div>
+      <div class="cv-s-section-title">Compétences clés</div>
+
+      <div class="cv-skill-group">
+        <div class="cv-skill-group-title">Langages & Stats</div>
+        <div class="cv-skill-list">
+          <span class="cv-skill-pill main">Python</span><span class="cv-skill-pill main">R</span><span class="cv-skill-pill main">STATA</span><span class="cv-skill-pill">SPSS</span><span class="cv-skill-pill">SAS</span><span class="cv-skill-pill">VBA</span><span class="cv-skill-pill">SQL</span>
+        </div>
+      </div>
+
+      <div class="cv-skill-group">
+        <div class="cv-skill-group-title">Business Intelligence</div>
+        <div class="cv-skill-list">
+          <span class="cv-skill-pill main">Power BI</span><span class="cv-skill-pill main">Tableau</span><span class="cv-skill-pill main">DAX</span><span class="cv-skill-pill">Power Query</span><span class="cv-skill-pill">Excel avancé</span>
+        </div>
+      </div>
+
+      <div class="cv-skill-group">
+        <div class="cv-skill-group-title">Bases de données</div>
+        <div class="cv-skill-list">
+          <span class="cv-skill-pill main">PostgreSQL</span><span class="cv-skill-pill">MySQL</span><span class="cv-skill-pill">MongoDB</span><span class="cv-skill-pill">Oracle</span><span class="cv-skill-pill">Access</span>
+        </div>
+      </div>
+
+      <div class="cv-skill-group">
+        <div class="cv-skill-group-title">Big Data & Cloud</div>
+        <div class="cv-skill-list">
+          <span class="cv-skill-pill">Spark</span><span class="cv-skill-pill">Hadoop</span><span class="cv-skill-pill">AWS</span>
+        </div>
+      </div>
+
+      <div class="cv-skill-group">
+        <div class="cv-skill-group-title">Collecte & Cartographie</div>
+        <div class="cv-skill-list">
+          <span class="cv-skill-pill main">KoboToolbox</span><span class="cv-skill-pill">ODK</span><span class="cv-skill-pill">ArcGIS</span><span class="cv-skill-pill">QGIS</span><span class="cv-skill-pill">CsPro</span>
+        </div>
+      </div>
+
+      <div class="cv-skill-group">
+        <div class="cv-skill-group-title">Développement</div>
+        <div class="cv-skill-list">
+          <span class="cv-skill-pill">Django</span><span class="cv-skill-pill">FastAPI</span><span class="cv-skill-pill">Plumber</span><span class="cv-skill-pill">C</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-sidebar-divider"></div>
+
+    <!-- LANGUES -->
+    <div>
+      <div class="cv-s-section-title">Langues</div>
+      <div>
+        <div class="cv-lang-item"><div><div class="cv-lang-name">Français</div><div class="cv-lang-level">Langue principale</div></div></div>
+        <div class="cv-lang-bar"><div class="cv-lang-fill" style="width:95%"></div></div>
+      </div>
+      <br>
+      <div>
+        <div class="cv-lang-item"><div><div class="cv-lang-name">Wolof</div><div class="cv-lang-level">Langue maternelle</div></div></div>
+        <div class="cv-lang-bar"><div class="cv-lang-fill" style="width:100%"></div></div>
+      </div>
+      <br>
+      <div>
+        <div class="cv-lang-item"><div><div class="cv-lang-name">Anglais</div><div class="cv-lang-level">Intermédiaire</div></div></div>
+        <div class="cv-lang-bar"><div class="cv-lang-fill" style="width:55%"></div></div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- MAIN -->
+  <main class="cv-main">
+
+    <div class="cv-main-header">
+      <div style="font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);font-weight:700;margin-bottom:8px;">Ingénieur Statisticien Économiste (ISE) · Finance & Actuariat</div>
+      <p class="cv-main-headline">
+        Statisticien économiste diplômé de l'ENSAE Dakar, spécialisé en Finance & Actuariat. Chargé de projet à l'ANSD, consultant indépendant en Business Intelligence et suivi-évaluation depuis 2022, et formateur certifié en Excel, Power BI et bases de données relationnelles.
+      </p>
+    </div>
+
+    <!-- FORMATION ACADÉMIQUE -->
+    <div class="cv-section">
+      <div class="cv-section-title">Formation académique</div>
+      <div class="cv-edu-grid">
+        <div class="cv-edu-item"><div class="cv-edu-year">Oct. 2021 — Juil. 2024</div><div class="cv-edu-degree">Ingénieur Statisticien Économiste — Finance & Actuariat</div><div class="cv-edu-school">ENSAE · Dakar</div></div>
+        <div class="cv-edu-item"><div class="cv-edu-year">Mars 2017 — Avr. 2021</div><div class="cv-edu-degree">Licence — Mathématiques Appliquées à la Finance</div><div class="cv-edu-school">Université Gaston Berger (UFR SAT) · Saint-Louis</div></div>
+        <div class="cv-edu-item"><div class="cv-edu-year">2014 — 2016</div><div class="cv-edu-degree">Baccalauréat Scientifique</div><div class="cv-edu-school">Lycée Malick SY · Thiès</div></div>
+      </div>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="cv-section">
+      <div class="cv-section-title">Certifications & Formations complémentaires</div>
+      <div class="cv-certs">
+        <div class="cv-cert-item"><div class="cv-cert-name">Planification intégrée & Suivi-Évaluation des Politiques Publiques</div><div class="cv-cert-org">IDEP – Nations Unies · 2025</div></div>
+        <div class="cv-cert-item"><div class="cv-cert-name">Archivage et Traitement de données satellitaires</div><div class="cv-cert-org">Campus France & ANSD · 2024</div></div>
+        <div class="cv-cert-item"><div class="cv-cert-name">Traitement de données foncières</div><div class="cv-cert-org">ENSAE · 2024</div></div>
+        <div class="cv-cert-item"><div class="cv-cert-name">Intelligence artificielle</div><div class="cv-cert-org">Institut Montaigne · 2020</div></div>
+        <div class="cv-cert-item"><div class="cv-cert-name">Prise de parole en public</div><div class="cv-cert-org">Institut Montaigne · 2020</div></div>
+      </div>
+    </div>
+
+    <!-- EXPÉRIENCES -->
+    <div class="cv-section">
+      <div class="cv-section-title">Expériences professionnelles</div>
+
+      <div class="cv-exp-item">
+        <div class="cv-exp-header"><div class="cv-exp-title">Chargé de projet — DSDS (ENES & EHCVM)</div><div class="cv-exp-date">Oct. 2025 — présent</div></div>
+        <div class="cv-exp-org">ANSD · Dakar, Sénégal</div>
+        <div class="cv-exp-desc">Pilotage d'enquêtes statistiques nationales ; coordination des équipes terrain et traitement des données collectées.</div>
+      </div>
+
+      <div class="cv-exp-item">
+        <div class="cv-exp-header"><div class="cv-exp-title">Chargé de projet — DSECN (EHCVM prix)</div><div class="cv-exp-date">Fév. — Sept. 2025</div></div>
+        <div class="cv-exp-org">ANSD · Dakar, Sénégal</div>
+        <div class="cv-exp-desc">Suivi du module prix de l'enquête EHCVM ; nettoyage, traitement et analyse des données de consommation.</div>
+      </div>
+
+      <div class="cv-exp-item">
+        <div class="cv-exp-header"><div class="cv-exp-title">Business Analyst — Direction des Opérations Internationales</div><div class="cv-exp-date">Mai — Août 2024</div></div>
+        <div class="cv-exp-org">SONATEL · Dakar, Sénégal</div>
+        <div class="cv-exp-desc">Analyse des données opérationnelles, élaboration de tableaux de bord décisionnels et reporting à la direction.</div>
+      </div>
+
+      <div class="cv-exp-item">
+        <div class="cv-exp-header"><div class="cv-exp-title">Consultant indépendant</div><div class="cv-exp-date">Janv. 2022 — Juil. 2024</div></div>
+        <div class="cv-exp-org">Data · Suivi-Évaluation · Business Intelligence · Formations</div>
+        <div class="cv-exp-desc">Accompagnement de structures publiques et privées en traitement de données, construction de KPI et tableaux de bord Power BI, suivi-évaluation et animation de formations en Excel, Power BI et bases de données.</div>
+      </div>
+
+      <div class="cv-exp-item">
+        <div class="cv-exp-header"><div class="cv-exp-title">Co-chef d'équipe — Développement d'applications de collecte</div><div class="cv-exp-date">Avr. — Mai 2024</div></div>
+        <div class="cv-exp-org">ANSD · Dakar</div>
+        <div class="cv-exp-desc">Conception et test d'outils de collecte (KoboToolbox, ODK) pour enquêtes statistiques nationales.</div>
+      </div>
+
+      <div class="cv-exp-item">
+        <div class="cv-exp-header"><div class="cv-exp-title">Concepteur d'enquête d'évaluation</div><div class="cv-exp-date">Mai — Juin 2023</div></div>
+        <div class="cv-exp-org">ANSD – IRD · Dakar</div>
+        <div class="cv-exp-desc">Conception du protocole d'enquête, élaboration des questionnaires et outils de collecte.</div>
+      </div>
+    </div>
+
+    <!-- COMPÉTENCES THÉMATIQUES -->
+    <div class="cv-section">
+      <div class="cv-section-title">Domaines d'expertise</div>
+      <div class="cv-skills-main">
+        <div class="cv-skill-main-group"><div class="cv-skill-main-title">Économétrie & Machine Learning</div><div class="cv-skill-main-tags"><span class="cv-tag">Modèles linéaires</span><span class="cv-tag">Séries temporelles</span><span class="cv-tag">Panel data</span><span class="cv-tag">Bayésien</span><span class="cv-tag">RCT</span><span class="cv-tag">DiD</span><span class="cv-tag">PSM</span><span class="cv-tag">RDD</span><span class="cv-tag">Clustering</span><span class="cv-tag">Classification</span></div></div>
+        <div class="cv-skill-main-group"><div class="cv-skill-main-title">Actuariat & Risque financier</div><div class="cv-skill-main-tags"><span class="cv-tag">Tarification Vie & IARD</span><span class="cv-tag">Provisionnement</span><span class="cv-tag">VaR</span><span class="cv-tag">Monte Carlo</span><span class="cv-tag">Stress test</span><span class="cv-tag">Bâle I, II & III</span><span class="cv-tag">Back test</span></div></div>
+        <div class="cv-skill-main-group"><div class="cv-skill-main-title">Suivi-Évaluation & Politiques publiques</div><div class="cv-skill-main-tags"><span class="cv-tag">Évaluation d'impact</span><span class="cv-tag">Analyse conjoncturelle</span><span class="cv-tag">Macroéconomie</span><span class="cv-tag">Variables instrumentales</span></div></div>
+        <div class="cv-skill-main-group"><div class="cv-skill-main-title">Formations dispensées</div><div class="cv-skill-main-tags"><span class="cv-tag">Excel avancé</span><span class="cv-tag">Power BI & DAX</span><span class="cv-tag">Bases de données SQL</span><span class="cv-tag">Intra-entreprise</span><span class="cv-tag">Présentiel & En ligne</span></div></div>
+      </div>
+    </div>
+
+    <!-- ATOUTS -->
+    <div class="cv-section">
+      <div class="cv-section-title">Atouts personnels</div>
+      <div class="cv-atouts">
+        <span class="cv-atout">Rigueur</span><span class="cv-atout">Esprit d'équipe</span><span class="cv-atout">Travail sous pression</span><span class="cv-atout">Créativité</span><span class="cv-atout">Adaptabilité</span><span class="cv-atout">Capacités rédactionnelles</span><span class="cv-atout">Pédagogie</span>
+      </div>
+    </div>
+
+    <!-- RÉFÉRENCES -->
+    <div class="cv-section">
+      <div class="cv-section-title">Références</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:14px 16px;">
+          <div style="font-weight:700;font-size:12px;color:var(--text);margin-bottom:4px;">El Hadji Yaya LY</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Chef du Bureau des Statistiques Sociales · ANSD</div>
+          <div style="font-size:10px;color:var(--gold);">yaya.ly@ansd.sn</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:14px 16px;">
+          <div style="font-weight:700;font-size:12px;color:var(--text);margin-bottom:4px;">Amath DIAGO</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">Chef de la Division des Statistiques Conjoncturelles · ANSD</div>
+          <div style="font-size:10px;color:var(--gold);">Amath.DIAGO@ansd.sn</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:3px;padding:14px 16px;">
+          <div style="font-weight:700;font-size:12px;color:var(--text);margin-bottom:4px;">Ismaila DIALLO</div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:6px;">ISE — Comptable National · ANSD</div>
+          <div style="font-size:10px;color:var(--gold);">ismaila.diallo@ansd.sn</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-footer">Ser
