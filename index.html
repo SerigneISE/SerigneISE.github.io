@@ -507,7 +507,7 @@ footer{padding:28px 60px;border-top:1px solid var(--border);display:flex;justify
       <h2 class="contact-heading reveal">Travaillons <em>ensemble</em></h2>
       <p class="contact-sub reveal">Disponible pour des missions de conseil, des formations en entreprise, des collaborations académiques ou toute opportunité en data, finance et évaluation.</p>
       <div class="contact-infos reveal">
-        <a href="mailto:serignembayethiam6@gmail.com" class="contact-item"><div class="ci-icon">✉</div><div><div class="ci-label">Email</div><div class="ci-val">serignembayethiam6@gmail.com</div></div></a>
+        <a href="/cdn-cgi/l/email-protection#ff8c9a8d9698919a929d9e869a8b97969e92c9bf98929e9693d19c9092" class="contact-item"><div class="ci-icon">✉</div><div><div class="ci-label">Email</div><div class="ci-val"><span class="__cf_email__" data-cfemail="681b0d1a010f060d050a09110d1c000109055e280f05090104460b0705">[email&#160;protected]</span></div></div></a>
         <a href="tel:+221774858743" class="contact-item"><div class="ci-icon">☎</div><div><div class="ci-label">Téléphone</div><div class="ci-val">+221 77 485 87 43</div></div></a>
         <a href="https://linkedin.com/in/s-m-t6/" target="_blank" class="contact-item"><div class="ci-icon">in</div><div><div class="ci-label">LinkedIn</div><div class="ci-val">linkedin.com/in/s-m-t6/</div></div></a>
         <div class="contact-item" style="cursor:default"><div class="ci-icon">📍</div><div><div class="ci-label">Localisation</div><div class="ci-val">Dakar, Sénégal</div></div></div>
@@ -517,16 +517,19 @@ footer{padding:28px 60px;border-top:1px solid var(--border);display:flex;justify
     </div>
     <div class="reveal" style="transition-delay:.15s">
       <div style="font-size:10px;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;font-weight:600;">Envoyer un message</div>
-      <div style="display:flex;flex-direction:column;gap:14px;">
+      <form id="contact-form" action="https://formspree.io/f/xkopnjee" method="POST" style="display:flex;flex-direction:column;gap:14px;">
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-          <div><div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:7px;">Nom</div><input type="text" id="f-name" placeholder="Votre nom complet" style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;border-radius:3px;outline:none;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"></div>
-          <div><div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:7px;">Email</div><input type="email" id="f-email" placeholder="votre@email.com" style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;border-radius:3px;outline:none;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"></div>
+          <div><div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:7px;">Nom</div><input type="text" name="name" placeholder="Votre nom complet" required style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;border-radius:3px;outline:none;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"></div>
+          <div><div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:7px;">Email</div><input type="email" name="email" placeholder="votre@email.com" required style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;border-radius:3px;outline:none;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"></div>
         </div>
-        <div><div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:7px;">Organisation</div><input type="text" id="f-org" placeholder="Entreprise, ONG, Institution…" style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;border-radius:3px;outline:none;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"></div>
-        <div><div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:7px;">Objet</div><select id="f-obj" style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;border-radius:3px;outline:none;appearance:none;cursor:pointer;"><option value="">Sélectionner…</option><option>Formation Excel</option><option>Formation Power BI</option><option>Formation Bases de données</option><option>Mission de consultance</option><option>Collaboration académique</option><option>Autre</option></select></div>
-        <div><div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:7px;">Message</div><textarea id="f-msg" placeholder="Décrivez votre besoin, le contexte, les dates envisagées…" rows="5" style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;border-radius:3px;outline:none;resize:vertical;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"></textarea></div>
-        <button onclick="sendMsg()" style="padding:14px;background:var(--gold);color:#fff;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:none;cursor:pointer;border-radius:3px;transition:all .3s;" onmouseover="this.style.background='var(--gold2)'" onmouseout="this.style.background='var(--gold)'">→ Envoyer le message</button>
-      </div>
+        <div><div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:7px;">Organisation</div><input type="text" name="organisation" placeholder="Entreprise, ONG, Institution…" style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;border-radius:3px;outline:none;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"></div>
+        <div><div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:7px;">Objet</div><select name="objet" style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;border-radius:3px;outline:none;appearance:none;cursor:pointer;"><option value="">Sélectionner…</option><option>Formation Excel</option><option>Formation Power BI</option><option>Formation Bases de données</option><option>Mission de consultance</option><option>Collaboration académique</option><option>Autre</option></select></div>
+        <div><div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:7px;">Message</div><textarea name="message" placeholder="Décrivez votre besoin, le contexte, les dates envisagées…" rows="5" required style="width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;padding:11px 14px;border-radius:3px;outline:none;resize:vertical;transition:border-color .3s;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'"></textarea></div>
+        <input type="hidden" name="_subject" value="Nouveau message depuis le portfolio">
+        <button type="submit" id="submit-btn" style="padding:14px;background:var(--gold);color:#fff;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;border:none;cursor:pointer;border-radius:3px;transition:all .3s;" onmouseover="this.style.background='var(--gold2)'" onmouseout="this.style.background='var(--gold)'">→ Envoyer le message</button>
+        <div id="form-success" style="display:none;padding:14px;background:#f0faf5;border:1px solid #3ecf8e;border-radius:3px;color:#1e7f5a;font-size:13px;text-align:center;font-weight:600;">✅ Message envoyé ! Je vous répondrai sous 24h.</div>
+        <div id="form-error" style="display:none;padding:14px;background:#fff5f5;border:1px solid #e05555;border-radius:3px;color:#c0392b;font-size:13px;text-align:center;">❌ Une erreur s'est produite. Réessayez ou écrivez directement par email.</div>
+      </form>
     </div>
   </div>
 </section>
@@ -557,15 +560,25 @@ document.querySelectorAll('a,button,select,input,textarea').forEach(el=>{
 });
 const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.08});
 document.querySelectorAll('.reveal,.tl-item').forEach(el=>obs.observe(el));
-function sendMsg(){
-  const n=document.getElementById('f-name').value,e=document.getElementById('f-email').value;
-  const o=document.getElementById('f-org').value,s=document.getElementById('f-obj').value;
-  const m=document.getElementById('f-msg').value;
-  if(!n||!e||!m){alert('Merci de remplir votre nom, email et message.');return;}
-  const sub=encodeURIComponent(s||'Contact depuis le portfolio');
-  const body=encodeURIComponent(`Bonjour Serigne,\n\nNom : ${n}\nEmail : ${e}\nOrganisation : ${o}\nObjet : ${s}\n\n${m}\n\nCordialement,\n${n}`);
-  window.location.href=`mailto:serignembayethiam6@gmail.com?subject=${sub}&body=${body}`;
+
+// Formspree
+const form=document.getElementById('contact-form');
+if(form){
+  form.addEventListener('submit',async function(e){
+    e.preventDefault();
+    const btn=document.getElementById('submit-btn');
+    const ok=document.getElementById('form-success');
+    const err=document.getElementById('form-error');
+    btn.textContent='Envoi en cours…';btn.disabled=true;btn.style.opacity='0.7';
+    try{
+      const res=await fetch('https://formspree.io/f/xkopnjee',{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});
+      if(res.ok){form.reset();ok.style.display='block';err.style.display='none';btn.style.display='none';}
+      else throw new Error();
+    }catch(e){
+      err.style.display='block';ok.style.display='none';
+      btn.textContent='→ Envoyer le message';btn.disabled=false;btn.style.opacity='1';
+    }
+  });
 }
-</script>
-</body>
+</script></body>
 </html>
